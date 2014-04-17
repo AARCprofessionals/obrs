@@ -1,0 +1,51 @@
+<?php
+/*
+Template Name: IMIS Thank You
+*/
+?>
+<?php 
+get_header();
+
+?>
+
+
+
+<?php
+$login = $_POST['login']; 		/* Get login from iMIS DB */
+$password = $_POST['password']; 	/* Get password from form */
+$email = $_POST['email']; 		/* Get email from form */
+$coursefield = $_POST['coursefield'];	/* Get course from form */
+?>
+
+
+
+
+<div class="column eightcol">
+
+<h1>Thank you for registering!</h1>
+
+<?php echo 'You entered Login ID: '.$login; ?><br>
+<?php echo 'You entered the email address: '.$email; ?><br>
+<?php echo 'You entered the course: '.$coursefield; ?><br><br>
+<div style="color: #990000;">
+<strong><?php echo 'For security purposes we will not show your password.'; ?></strong><br><br>
+</div>
+
+<?php
+// Create WP User and register for course 
+$user_id=wp_create_user( $login, $password, $email ); 
+ThemexCourse::subscribeUser($coursefield, $user_id, true);
+echo 'Your id is now registered thanks---> '.$login;
+?><br><br>
+
+<?php
+
+?>
+
+<h3><?php echo $login .', Please click the SIGN IN button above to log in.' ?></h3>
+</div>
+
+<aside class="sidebar column fourcol last">
+<?php get_sidebar(); ?>
+</aside>
+<?php get_footer(); ?>
